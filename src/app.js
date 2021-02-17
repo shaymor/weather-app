@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+require('dotenv').config()
 
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
@@ -8,7 +9,7 @@ const forecast = require('./utils/forecast')
 const app = express()
 const port = process.env.PORT || 3000
 
-// Defining paths for Dxpress config
+// Defining paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public/')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
@@ -24,14 +25,14 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather App',
-        name: 'Shay Mor'
+        name: process.env.NAME
     })
 })
 
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'About',
-        name: 'Shay Mor'
+        name: process.env.NAME
     })
 })
 
@@ -39,7 +40,7 @@ app.get('/help', (req, res) => {
     res.render('help', {
         helpText: 'This is some helpful text.',
         title: 'Help',
-        name: 'Shay Mor'
+        name: process.env.NAME
     })
 })
 
@@ -86,7 +87,7 @@ app.get('/help/*', (req, res) => {
     res.render('404', {
         errorMessage: 'Help article not found.',
         title: '404 - Help',
-        name: 'Shay Mor'
+        name: process.env.NAME
     })
 })
 
@@ -94,7 +95,7 @@ app.get('*', (req, res) => {
     res.render('404', {
         errorMessage: 'Page not found.',
         title: '404',
-        name: 'Shay Mor'
+        name: process.env.NAME
     })
 })
 
